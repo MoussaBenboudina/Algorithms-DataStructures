@@ -39,3 +39,22 @@ int main()
 
     return 0;
 }
+
+
+import { useDraggable } from '@dnd-kit/core';
+
+function DraggableItem() {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: 'draggable',
+  });
+
+  const style = {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      Drag me!
+    </div>
+  );
+}
