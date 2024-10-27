@@ -11,7 +11,7 @@ int main()
     const int target2 = 14;
 
      binarySearch(arr , target1); // output  5
-     binarySearch(arr , target2); // output -1
+     binarySearch(arr , target2); // output -1;
     return 0;
 }
 
