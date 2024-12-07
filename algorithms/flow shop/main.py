@@ -42,12 +42,9 @@ def Exhaustive (J) :
         if len(path) == len(s):
             search_space.append(copy.deepcopy(path))
             current_fitness = fetness(path)
-            
-            
             # print(path ,"=>", min_makspan, "\n",path , "=>",  current_fitness , "\n min_makspan :" , min_makspan,"\n" ,'_' * 100)
             if current_fitness <= min_makspan:
                 min_makspan = current_fitness
-
                 best_seq = copy.deepcopy(path)
                 return;
        
@@ -96,7 +93,10 @@ def NEH(J) :
         makespan = ST[-1][-1] + EX[-1][-1]; 
         return makespan;
 
+
     search_space = [];
+
+      # step 1
     def sort_Jobs_by_time (J) :
         from functools import reduce
         times = list(map(lambda lis: reduce(lambda x , y : x + y , lis) , J))
@@ -105,26 +105,22 @@ def NEH(J) :
         return list(L);
 
 
-
+  # step 2
     def min_sequence (L , j) :
        
         n = len(L)
         min_seq =  L + [j] 
        
-
         for i in range(0 , n + 1) : # o(n)
             s = L[:i] + [j] + L[i:]
-            
-          
             search_space.append(s)
-
             current_makespan = fetness(s)
             if current_makespan < fetness(min_seq) : 
                 min_seq = s;
-        
         return min_seq;
 
 
+    # step 3
     n = len(sort_Jobs_by_time(J))
     L = sort_Jobs_by_time(J);
     seq = [L[0]]
@@ -132,7 +128,7 @@ def NEH(J) :
         seq = min_sequence(seq , L[i])
  
 
-    # print(" search_space ::" ,  search_space)
+    # print(" search_space :" ,  search_space)
     return seq , fetness(seq) , search_space
 
 
