@@ -4,7 +4,7 @@ import copy
 
 def Exhaustive (J) :
 
-    def fetness(s) : # o( n * m)
+    def fitness(s) : # o( n * m)
 
         n = len(s);
         m = len(J[0]);
@@ -32,7 +32,7 @@ def Exhaustive (J) :
     
     s = list(range(1, len(J) + 1))
     
-    min_makspan = fetness(s);
+    min_makspan = fitness(s);
     best_seq = s;
     search_space = []
     def back (path) :
@@ -41,7 +41,7 @@ def Exhaustive (J) :
         
         if len(path) == len(s):
             search_space.append(copy.deepcopy(path))
-            current_fitness = fetness(path)
+            current_fitness = fitness(path)
             # print(path ,"=>", min_makspan, "\n",path , "=>",  current_fitness , "\n min_makspan :" , min_makspan,"\n" ,'_' * 100)
             if current_fitness <= min_makspan:
                 min_makspan = current_fitness
@@ -66,7 +66,7 @@ def Exhaustive (J) :
 def NEH(J) : 
     s = list(range(1, len(J) + 1))
 
-    def fetness(s) : # o( n * m)
+    def fitness(s) : # o( n * m)
 
         n = len(s);
         m = len(J[0]);
@@ -114,8 +114,8 @@ def NEH(J) :
         for i in range(0 , n + 1) : # o(n)
             s = L[:i] + [j] + L[i:]
             search_space.append(s)
-            current_makespan = fetness(s)
-            if current_makespan < fetness(min_seq) : 
+            current_makespan = fitness(s)
+            if current_makespan < fitness(min_seq) : 
                 min_seq = s;
         return min_seq;
 
@@ -129,7 +129,7 @@ def NEH(J) :
  
 
     # print(" search_space :" ,  search_space)
-    return seq , fetness(seq) , search_space
+    return seq , fitness(seq) , search_space
 
 
 
