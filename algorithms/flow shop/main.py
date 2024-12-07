@@ -34,10 +34,13 @@ def Exhaustive (J) :
     
     min_makspan = fetness(s);
     best_seq = s;
+    search_space = []
     def back (path) :
         nonlocal min_makspan;
         nonlocal  best_seq;
+        
         if len(path) == len(s):
+            search_space.append(copy.deepcopy(path))
             current_fitness = fetness(path)
             
             
@@ -56,8 +59,8 @@ def Exhaustive (J) :
         
         
     back([])
-   
-    return best_seq , min_makspan ;
+    
+    return best_seq , min_makspan , search_space ;
 
 
 
@@ -92,7 +95,8 @@ def NEH(J) :
         
         makespan = ST[-1][-1] + EX[-1][-1]; 
         return makespan;
-  
+
+    search_space = [];
     def sort_Jobs_by_time (J) :
         from functools import reduce
         times = list(map(lambda lis: reduce(lambda x , y : x + y , lis) , J))
@@ -106,15 +110,18 @@ def NEH(J) :
        
         n = len(L)
         min_seq =  L + [j] 
-        
+       
+
         for i in range(0 , n + 1) : # o(n)
             s = L[:i] + [j] + L[i:]
-            # print("makespan" ,s  ,'is : ' ,fetness(s) )
+            
+          
+            search_space.append(s)
+
             current_makespan = fetness(s)
             if current_makespan < fetness(min_seq) : 
                 min_seq = s;
         
-        # print("==> makespan" ,min_seq  ,'is : ' ,fetness(min_seq) )
         return min_seq;
 
 
@@ -125,8 +132,8 @@ def NEH(J) :
         seq = min_sequence(seq , L[i])
  
 
-   
-    return seq , fetness(seq)
+    # print(" search_space ::" ,  search_space)
+    return seq , fetness(seq) , search_space
 
 
 
@@ -138,12 +145,12 @@ try :
     J = [[5 ,9, 8, 10, 1], [9, 3, 10, 1, 8] , [9 ,4 ,5 ,8 ,6 ] , [4 ,8, 8, 7, 2]]  
 
     print("_" * 150 ,"\nExhaustive : ")
-    solution , makespan = Exhaustive(J)
-    print("sequence : ", solution , '\nmakespan :', makespan, '\nComplexity : O(n!)')
+    solution , makespan ,search_space  = Exhaustive(J)
+    print("searchs Space (Espace de recherche) :" , search_space ,"\nsequence : ", solution , '\nmakespan :', makespan, '\nComplexity : O(n!)')
         
     print( "_" * 150 ,"\nNEH : ")
-    solution , makespan= NEH(J);
-    print("sequence :", solution , '\nmakespan :', makespan, '\nComplexity : O( n^3 * m)')
+    solution , makespan , search_space = NEH(J);
+    print("searchs Space (Espace de recherche) :" , search_space ,"\nsequence :", solution , '\nmakespan :', makespan, '\nComplexity : O( n^3 * m)')
 
 except Exception as e:
     print("error :", e)
