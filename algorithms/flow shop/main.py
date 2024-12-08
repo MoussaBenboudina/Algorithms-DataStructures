@@ -42,7 +42,6 @@ def Exhaustive (J) :
         if len(path) == len(s):
             search_space.append(copy.deepcopy(path))
             current_fitness = fitness(path)
-            # print(path ,"=>", min_makspan, "\n",path , "=>",  current_fitness , "\n min_makspan :" , min_makspan,"\n" ,'_' * 100)
             if current_fitness <= min_makspan:
                 min_makspan = current_fitness
                 best_seq = copy.deepcopy(path)
@@ -58,8 +57,6 @@ def Exhaustive (J) :
     back([])
     
     return best_seq , min_makspan , search_space ;
-
-
 
 
 
@@ -96,7 +93,7 @@ def NEH(J) :
 
     search_space = [];
 
-      # step 1
+    
     def sort_Jobs_by_time (J) :
         from functools import reduce
         times = list(map(lambda lis: reduce(lambda x , y : x + y , lis) , J))
@@ -105,7 +102,7 @@ def NEH(J) :
         return list(L);
 
 
-  # step 2
+ 
     def min_sequence (L , j) :
        
         n = len(L)
@@ -120,7 +117,8 @@ def NEH(J) :
         return min_seq;
 
 
-    # step 3
+
+    
     n = len(sort_Jobs_by_time(J))
     L = sort_Jobs_by_time(J);
     seq = [L[0]]
@@ -128,7 +126,7 @@ def NEH(J) :
         seq = min_sequence(seq , L[i])
  
 
-    # print(" search_space :" ,  search_space)
+    
     return seq , fitness(seq) , search_space
 
 
