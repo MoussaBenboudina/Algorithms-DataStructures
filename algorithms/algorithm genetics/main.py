@@ -35,9 +35,10 @@ def algorithme_genetics (values , W , weights , number_population) :
         if is_valid(chromosome) : 
             Population.append(chromosome)
 
-    print("popultion : " , Population)        
+    values = map(lambda c : fitness(c) ,Population)       
+    print("initial popultion : " , Population , "\n values : " , list(values)) 
+        
     return sort_by_value(Population);
-
 
 
   y = 0;
@@ -45,7 +46,6 @@ def algorithme_genetics (values , W , weights , number_population) :
      nonlocal y
      values = map(lambda c : fitness(c) ,Population)
      values = list(values)
-     
      zipped = sorted(zip(values, Population), reverse=True)
      sorted_values , sorted_population = zip(*zipped);
      sorted_population , sorted_values= list(sorted_population) , list(sorted_values)
@@ -64,16 +64,9 @@ def algorithme_genetics (values , W , weights , number_population) :
         p1 = Population[i]
         p2 = Population[i + 1]
         k = random.randint(1, len(p1) - 1);
-        c1 = []
-        c2 = []
+        c1 = p1[:k] + p2[k:]
+        c2 = p2[:k] + p1[k:]
 
-        for j in range(n) :
-          if j < k :
-            c1.append(p1[j])
-            c2.append(p2[j])
-          else :
-            c1.append(p2[j])
-            c2.append(p1[j])
         if is_valid(c1):  
             Population.append(c1)
         if is_valid(c2): 
