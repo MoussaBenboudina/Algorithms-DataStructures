@@ -2,7 +2,7 @@
 
 import random
 
-def algorithme_genitice (values , W , weights , number_population) :
+def algorithme_genetics (values , W , weights , number_population) :
   
   n = len(values)
 
@@ -14,7 +14,6 @@ def algorithme_genitice (values , W , weights , number_population) :
     for i in range(n) :
         sum += s[i] * values[i];
     return sum;
-
 
 
   def is_valid (s) :
@@ -94,7 +93,7 @@ def algorithme_genitice (values , W , weights , number_population) :
     if abs(fitness(population[0]) - fitness(population[-1])) / fitness(population[0]) < 0.01 or x > 30 :
        break;
      
-     
+
   
 
 
@@ -102,9 +101,9 @@ def algorithme_genitice (values , W , weights , number_population) :
 W = 60;
 weights = [5 , 20 , 22 , 8 , 10  , 15]
 values =  [10 , 42 , 45 , 19 , 21 , 78 ]
-number_population = 6;
+number_population = 8;
 
-algorithme_genitice(values , W , weights , number_population);
+algorithme_genetics(values , W , weights , number_population);
 
  
         
