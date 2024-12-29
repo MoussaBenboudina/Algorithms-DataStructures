@@ -1,7 +1,5 @@
-/**
- * @param {number} n
- * @return {string[][]}
- */
+
+
 var solveNQueens = function (n) {
   const solutions = [];
   function isValid(s, row, col) {
